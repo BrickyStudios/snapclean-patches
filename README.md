@@ -52,6 +52,8 @@ It rewrites the location Snapchat *uses*; it does not forge GPS hardware or defe
 
 ## Building & contributing
 
+**Want to help finish the ad/promo patches?** [`CONTRIBUTING.md`](CONTRIBUTING.md) is a full playbook: prerequisites, how to build (incl. a no-PAT fallback), REA + jadx setup, and the exact reverse-engineering task and prompts for each open gate. Needs a machine with ≥ 8 GB RAM and a device to test.
+
 SnapClean is built on the official [`morphe-patches-template`](https://github.com/MorpheApp/morphe-patches-template).
 
 ```bash
