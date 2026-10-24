@@ -73,6 +73,10 @@ Snapchat is heavily obfuscated and changes every release, so the two "not yet ve
 
 See the [Morphe fingerprinting docs](https://github.com/MorpheApp/morphe-patcher/blob/main/docs/2_2_1_fingerprinting.md). Make changes on the `dev` branch; releases are cut by `release.yml` (do not edit generated files by hand).
 
+## Roadmap
+
+See [`ROADMAP.md`](ROADMAP.md) for what's planned and why — which Snapchat features are feasible as static Morphe patches, which Morphe YouTube patches have a Snapchat analog worth doing, and what's borrowed from [SnapEnhance](https://github.com/rathmerdominik/SnapEnhance). Short version: location spoofing works today; a **Snapchat+ spoof** (kills the paid-filter/upsell nags) is the next quick win; real ad-removal is the hard long-term goal.
+
 ## FAQ
 
 **Is this a Snapchat ad blocker?** That's the goal — blocking in-app ads by patching the app rather than filtering traffic. The ad patch is work-in-progress; the custom-location patch works today.
