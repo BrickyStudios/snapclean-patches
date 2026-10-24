@@ -59,11 +59,19 @@ SnapClean is built on the official [`morphe-patches-template`](https://github.co
 # → patches/build/libs/patches-*.mpp — apply with Morphe Desktop.
 ```
 
-The patches match Snapchat internals by **fingerprints** in each feature's `Fingerprints.kt`. Snapchat obfuscates and changes its code every release, so fingerprints marked `TODO` must be validated against your target APK before a stable release. Use [REA](https://github.com/morluto/rea) to locate the real methods:
+The patches match Snapchat internals by **fingerprints** in each feature's `Fingerprints.kt`, anchored to evidence from **Snapchat 14.29.0.50** (versionCode 322522):
 
-> *"Decompile com.snapchat.android and find where ad slots are gated; show the method and the evidence."*
+| Patch | Fingerprint status |
+|-------|--------------------|
+| Spoof location | **Method-verified** — `onLocationChanged(Landroid/location/Location;)V` confirmed in the APK (classes2/3.dex). |
+| Hide ads | Anchored to the confirmed string `skip_ad_insertion_with_null_group_id`; exact boolean-gate method not yet verified. |
+| Hide promos | Anchored to the confirmed flag `PLUS_UNIFIED_PAYWALL_PROFILE_ENABLED`; exact gate not yet verified. |
 
-See [`CONTRIBUTING`](https://github.com/MorpheApp/morphe-documentation) and the [Morphe fingerprinting docs](https://github.com/MorpheApp/morphe-patcher/blob/main/docs/2_2_1_fingerprinting.md). Make changes on the `dev` branch; releases are cut by `release.yml` (do not edit generated files by hand).
+Snapchat is heavily obfuscated and changes every release, so the two "not yet verified" gates need a full bytecode decompile to confirm the method shape (and runtime testing) before a stable release. Use [REA](https://github.com/morluto/rea) + jadx on a machine with ≥ 4 GB RAM:
+
+> *"Decompile com.snapchat.android, find the method referencing `skip_ad_insertion_with_null_group_id`, and show whether it gates ad serving."*
+
+See the [Morphe fingerprinting docs](https://github.com/MorpheApp/morphe-patcher/blob/main/docs/2_2_1_fingerprinting.md). Make changes on the `dev` branch; releases are cut by `release.yml` (do not edit generated files by hand).
 
 ## FAQ
 
@@ -75,7 +83,7 @@ See [`CONTRIBUTING`](https://github.com/MorpheApp/morphe-documentation) and the 
 
 **Is it free?** Yes, GPLv3, forever. SnapClean never asks for payment.
 
-**Which Snapchat versions are supported?** Any version is supported experimentally until a confirmed-working version is pinned — see [`Constants.kt`](patches/src/main/kotlin/app/snapclean/patches/shared/Constants.kt).
+**Which Snapchat versions are supported?** Fingerprinted against **14.29.0.50** (universal APK); newer builds are allowed experimentally — see [`Constants.kt`](patches/src/main/kotlin/app/snapclean/patches/shared/Constants.kt).
 
 ## Keywords
 

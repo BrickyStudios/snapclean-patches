@@ -4,19 +4,19 @@ import app.morphe.patcher.Fingerprint
 import com.android.tools.smali.dexlib2.AccessFlags
 
 /**
- * Matches the method that delivers a fresh android.location.Location into the app
- * (e.g. an onLocationChanged / location-result callback).
+ * Matches the standard LocationListener callback that delivers a fresh
+ * android.location.Location into the app.
  *
- * TODO: Validate against your target APK with REA before a stable release:
- *   "Decompile com.snapchat.android and find where a android.location.Location is
- *    received from the fused/location provider; show the callback method and which
- *    parameter is the Location."
- *   Add the confirmed `definingClass`, parameter order and any stable strings/filters,
- *   and update the injected register in SpoofLocationPatch if it is not p1.
+ * EVIDENCE (Snapchat 14.29.0.50, versionCode 322522): dexdump confirms real methods
+ *   `onLocationChanged(Landroid/location/Location;)V` in classes2.dex and classes3.dex,
+ *   plus a reference to com.google.android.gms.location.internal.IFusedLocationProviderCallback.
+ * This signature is real, so SpoofLocationPatch injects at p1 (the Location) with confidence.
+ *
+ * Note: more than one method matches; overriding every delivered Location is the intended
+ * behaviour for a spoof. If you want to narrow it, add the confirmed definingClass via REA.
  */
 object LocationDeliveryFingerprint : Fingerprint(
     accessFlags = listOf(AccessFlags.PUBLIC),
     returnType = "V",
-    // Partial match: the callback takes a Location somewhere in its parameters.
     parameters = listOf("Landroid/location/Location;"),
 )

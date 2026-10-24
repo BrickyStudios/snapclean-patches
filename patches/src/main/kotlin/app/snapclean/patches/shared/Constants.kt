@@ -8,23 +8,20 @@ object Constants {
     /**
      * Snapchat on Android.
      *
-     * Snapchat is distributed on APKMirror as a split bundle, so [apkFileType] is [ApkFileType.APKM]
-     * and Morphe Manager will redirect the user to APKMirror.
-     *
-     * shortcut: targets only "any version, experimental" until a confirmed-working version is pinned.
-     *   Pin the exact version you fingerprinted against (add `AppTarget(version = "<x.y.z.w>")`)
-     *   before cutting a stable release, so users have a 100%-tested target. See README "Updating".
+     * Fingerprinted against the universal APK (arm64-v8a + armeabi-v7a, nodpi) from APKMirror,
+     * which is a single [ApkFileType.APK]. 14.29.0.50 is confirmed present for the string/method
+     * evidence in the fingerprints; later versions are allowed experimentally.
      */
     val COMPATIBILITY_SNAPCHAT = Compatibility(
         name = "Snapchat",
         packageName = "com.snapchat.android",
-        apkFileType = ApkFileType.APKM,
+        apkFileType = ApkFileType.APK,
         appIconColor = 0xFFFC00, // Snapchat yellow.
         targets = listOf(
-            AppTarget(
-                version = null,
-                isExperimental = true,
-            ),
+            // Confirmed analysed target (versionCode 322522).
+            AppTarget(version = "14.29.0.50"),
+            // Allow newer builds, flagged experimental until re-fingerprinted.
+            AppTarget(version = null, isExperimental = true),
         ),
     )
 }
