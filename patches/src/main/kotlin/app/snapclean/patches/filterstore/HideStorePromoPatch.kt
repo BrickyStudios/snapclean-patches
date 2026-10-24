@@ -11,9 +11,14 @@ private const val EXTENSION_CLASS = "Lapp/snapclean/extension/filterstore/StoreP
  * "unlock with Snapchat+" banners, the paid-filter carousel entries and the
  * recurring subscription prompts.
  *
- * Strategy: an internal gate decides whether a promo/upsell surface should be shown.
- * We rewrite it to always report "no promo", so the free lens carousel stays intact
- * while the paid upsell entries are dropped.
+ * SCOPE (by project decision): this hides the *promo UI only*. It must NOT spoof an
+ * active subscription. Forcing the SubscriptionInfo constructor to tier/status = 2
+ * (as SnapEnhance does) would unlock a paid tier for free — that is a premium-unlock /
+ * payment circumvention and is deliberately out of scope here. See ROADMAP.md.
+ *
+ * Strategy: find the boolean *eligibility* gate that decides whether an upsell surface
+ * is shown and force it to "not eligible / don't show", leaving the free lens carousel
+ * intact and unlocking nothing.
  */
 @Suppress("unused")
 val hideStorePromoPatch = bytecodePatch(

@@ -13,10 +13,15 @@ import com.android.tools.smali.dexlib2.AccessFlags
  *
  * WILL NOT MATCH AS-IS: dexdump shows this string is defined in a `<clinit>` (a static
  *   constant), not a boolean gate, so the filter below finds no match and the patch fails
- *   to apply (hence EXPERIMENTAL, off by default). Locate the real upsell gate with a full
- *   jadx/REA decompile on a >4 GB box, then rewrite this fingerprint and the patch body:
- *     "Decompile com.snapchat.android, find the method that decides whether the Snapchat+
- *      paywall / paid-lens upsell is shown, and show its signature."
+ *   to apply (hence EXPERIMENTAL, off by default). The real upsell-eligibility methods are
+ *   obfuscated (names like `a`/`H`), so a plain string grep cannot find them.
+ *
+ * TARGET (hide-only, no subscription spoof): a boolean *eligibility* method that decides
+ *   whether an upsell/paywall surface is shown; force it to return false. Locate it with a
+ *   full jadx/REA decompile on a >4 GB box (OOMs here) and confirm on a device:
+ *     "Decompile com.snapchat.android, find the boolean method that decides whether a
+ *      Snapchat+ paywall / paid-lens upsell banner is shown (an *_UpsellEligibility check),
+ *      and show its signature — NOT the SubscriptionInfo constructor."
  */
 object StorePromoGateFingerprint : Fingerprint(
     accessFlags = listOf(AccessFlags.PUBLIC),

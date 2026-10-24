@@ -26,7 +26,7 @@ Consequences:
 | Feature | Why | Approach (static-patch) | Status |
 |---------|-----|-------------------------|--------|
 | **Spoof location** | The requested feature | Hook Snapchat's `onLocationChanged(Location)` and mutate lat/lng in place (verified signature in 14.29.0.50). SnapEnhance's framework-getter hook is Xposed-only. | ✅ Implemented |
-| **Spoof Snapchat+** | Kills the "get Snapchat+" upsells **and** the paid-filter/lens nags by making the app think you're subscribed | Patch the `SubscriptionInfo` constructor to force tier=2/status=2 (SnapEnhance's proven method; anchor class found via the `PlusSubscriptionState` static field — confirmed present in the APK). | 🔜 Approach known, ready to implement |
+| **Hide paid-filter / Snapchat+ nags** | The requested de-clutter: remove the upsell banners/prompts | **Hide-only**: force a boolean upsell-*eligibility* gate to "don't show". Needs a full decompile to locate (obfuscated). | 🚧 WIP, hard |
 | **Disable Play Store updates** | Stops Play Store silently replacing the patched app | Reuse Morphe's generic `all/misc/updates/DisablePlayStoreUpdatesPatch`. | 🔜 Mostly reusable |
 | **Spoof app version** | Dodge Snapchat's forced-update / "unsupported version" nag screens | Analog of YouTube `misc/spoof/appversion/SpoofAppVersionPatch`: override the version string the app reports. | 🔜 Needs the version field fingerprint |
 | **SnapClean settings screen** | So the location coords and toggles have an in-app UI instead of source constants | Analog of YouTube `misc/settings/SettingsPatch` + Morphe's shared settings library (`app.morphe.extension.shared.settings.*`). Infra that the other patches then plug into. | 🔜 Infrastructure |
@@ -62,8 +62,18 @@ From `morphe-patches/.../patches/all` and `/shared`:
 - `misc/network/OverrideCertificatePinningPatch` — for anyone inspecting Snapchat traffic while developing network-based features.
 - `misc/debugging/EnableAndroidDebuggingPatch` — eases development/fingerprinting.
 
-## Suggested next step
+## Deliberately out of scope (non-goals)
 
-Implement **Spoof Snapchat+** (Tier 1) — it's the biggest quick win for your "paid-filter
-nags" annoyance, the approach is proven by SnapEnhance, and the anchor is already confirmed
-in your APK. Then add the **settings screen** so location + future toggles get a real UI.
+- **Spoofing an active Snapchat+ subscription** (SnapEnhance forces the `SubscriptionInfo`
+  constructor to tier/status = 2). It would remove the nags as a side effect, but it unlocks
+  a paid tier for free — a premium-unlock / payment circumvention. SnapClean removes ads and
+  promo clutter; it does not unlock paid features. The promo feature above is **hide-only**.
+
+## Suggested next steps
+
+1. **Disable Play Store updates** + **spoof app version** — small, mostly-generic wins that
+   keep the patched app stable. No deep RE needed.
+2. **Settings screen** — so the location coords and future toggles get a real in-app UI.
+3. The two hard de-clutter features (**hide ads**, **hide upsell nags**) need a full decompile
+   on a ≥ 4 GB machine (REA is already configured for it) plus a device to confirm the UI
+   effect — this box OOMs on a full Snapchat decompile.

@@ -75,7 +75,7 @@ See the [Morphe fingerprinting docs](https://github.com/MorpheApp/morphe-patcher
 
 ## Roadmap
 
-See [`ROADMAP.md`](ROADMAP.md) for what's planned and why — which Snapchat features are feasible as static Morphe patches, which Morphe YouTube patches have a Snapchat analog worth doing, and what's borrowed from [SnapEnhance](https://github.com/rathmerdominik/SnapEnhance). Short version: location spoofing works today; a **Snapchat+ spoof** (kills the paid-filter/upsell nags) is the next quick win; real ad-removal is the hard long-term goal.
+See [`ROADMAP.md`](ROADMAP.md) for what's planned and why — which Snapchat features are feasible as static Morphe patches, which Morphe YouTube patches have a Snapchat analog worth doing, and what's borrowed from [SnapEnhance](https://github.com/rathmerdominik/SnapEnhance). Short version: location spoofing works today; removing ads and the paid-filter/upsell nags is **hide-only** (SnapClean unlocks nothing — spoofing a paid subscription is a deliberate non-goal) and is the hard long-term work that needs a full decompile + on-device testing.
 
 ## FAQ
 
