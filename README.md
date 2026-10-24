@@ -1,8 +1,8 @@
-# SnapClean — Ad-Free Snapchat Patches for Morphe (No Ads, No Paid-Filter Nags, Free Custom Location)
+# SnapClean — Open-Source Snapchat Patches for Morphe (Custom Location, with Ad-Blocking in Progress)
 
-**SnapClean is an open-source patch bundle that removes ads from Snapchat on Android, hides the paid-filter and Snapchat+ upsell nags, and lets you set your location anywhere in the world — applied with [Morphe](https://morphe.software/), the free open-source app patcher.** No root, no subscription, no telemetry. You patch your own legally obtained Snapchat APK locally and keep using your own account.
+**SnapClean is an open-source patch bundle for [Morphe](https://morphe.software/) (the free open-source app patcher) that targets Snapchat on Android.** The goal: a clean Snapchat with the sponsored Snaps and the paid-filter / Snapchat+ upsell nags stripped out, plus a privacy toggle to set your location anywhere in the world. No root, no subscription, no telemetry — you patch your own legally obtained Snapchat APK locally and keep using your own account.
 
-> Tired of sponsored Snaps in every Story, the constant "unlock with Snapchat+" banners, and paid lenses shoved in your face? SnapClean strips the ads and the upsells back out, and adds a privacy toggle to place your Snap Map pin wherever you want.
+> ⚠️ **Project status (early / honest):** The **custom-location** patch is built against a verified method signature in Snapchat 14.29.0.50. The **ad-blocking** and **upsell-hiding** patches are **work-in-progress** — Snapchat's ad/upsell gates are heavily obfuscated and haven't been pinned down yet, so those two are off by default and will not apply until a contributor locates the real methods (see the status table below). Stars and pull requests welcome.
 
 ## Add these Snapchat patches to Morphe
 
@@ -14,11 +14,11 @@ Then select **Snapchat** and apply the patches below. New to Morphe? See [How Mo
 
 ## Features
 
-| Patch | What it does |
-|-------|--------------|
-| **Hide ads** | Removes sponsored Snaps and ad tiles in Stories, Discover and Spotlight. *(on by default)* |
-| **Hide paid filter & Snapchat+ promos** | Removes paid-lens upsells and the recurring Snapchat+ subscription nags, keeping the free lens carousel. *(on by default)* |
-| **Spoof location** | Set a custom latitude/longitude anywhere on Earth for Snap Map and geofilters. *(off by default)* |
+| Patch | What it does | Status |
+|-------|--------------|--------|
+| **Spoof location** | Set a custom latitude/longitude anywhere on Earth for Snap Map and geofilters. | ✅ Built on a verified `onLocationChanged(Location)` signature. Off by default. |
+| **Hide ads** | Goal: remove sponsored Snaps and ad tiles in Stories, Discover and Spotlight. | 🚧 WIP — gate method not located yet; off by default, won't apply until fixed. |
+| **Hide paid filter & Snapchat+ promos** | Goal: remove paid-lens upsells and Snapchat+ subscription nags. | 🚧 WIP — gate method not located yet; off by default, won't apply until fixed. |
 
 <!-- PATCHES_START -->
 <!-- The detailed patch list is generated automatically on the first release. -->
@@ -26,9 +26,9 @@ Then select **Snapchat** and apply the patches below. New to Morphe? See [How Mo
 
 ## Why SnapClean
 
-- **Ad-free Snapchat** — no sponsored Snaps, no ad tiles, a clean feed.
-- **No upsell nags** — the "get Snapchat+" and paid-lens prompts are gone.
-- **Free custom location** — a built-in fake-location / GPS-spoof toggle for Snap Map, no separate mock-location app needed.
+- **Free custom location** — a built-in fake-location / GPS-spoof toggle for Snap Map, no separate mock-location app needed. *(working today)*
+- **Ad-free Snapchat — the goal** — stripping sponsored Snaps and ad tiles is the headline aim; the gate is still being reverse-engineered. *(in progress)*
+- **No upsell nags — the goal** — removing the "get Snapchat+" and paid-lens prompts. *(in progress)*
 - **Open source & private** — GPLv3, patched locally on your device, nothing is uploaded, your account stays yours.
 - **No root required** — Morphe repackages the app; install it like any other APK.
 
@@ -75,7 +75,7 @@ See the [Morphe fingerprinting docs](https://github.com/MorpheApp/morphe-patcher
 
 ## FAQ
 
-**Is this a Snapchat ad blocker?** Yes — it removes in-app Snapchat ads by patching the app, rather than filtering network traffic.
+**Is this a Snapchat ad blocker?** That's the goal — blocking in-app ads by patching the app rather than filtering traffic. The ad patch is work-in-progress; the custom-location patch works today.
 
 **Does it need root?** No.
 

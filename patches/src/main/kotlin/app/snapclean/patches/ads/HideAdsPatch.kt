@@ -15,9 +15,10 @@ private const val EXTENSION_CLASS = "Lapp/snapclean/extension/ads/HideAdsExtensi
  */
 @Suppress("unused")
 val hideAdsPatch = bytecodePatch(
-    name = "Hide ads",
-    description = "Removes sponsored Snaps and ad tiles in Stories, Discover and Spotlight.",
-    default = true,
+    name = "Hide ads (EXPERIMENTAL, WIP)",
+    description = "WIP: the ad-serving gate is not located yet, so this will currently fail to " +
+        "apply. Off by default. See Fingerprints.kt for the evidence and what's needed.",
+    default = false,
 ) {
     compatibleWith(COMPATIBILITY_SNAPCHAT)
 

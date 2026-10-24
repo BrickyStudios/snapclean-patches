@@ -17,9 +17,10 @@ private const val EXTENSION_CLASS = "Lapp/snapclean/extension/filterstore/StoreP
  */
 @Suppress("unused")
 val hideStorePromoPatch = bytecodePatch(
-    name = "Hide paid filter & Snapchat+ promos",
-    description = "Removes paid-lens upsells and recurring Snapchat+ subscription nags.",
-    default = true,
+    name = "Hide paid filter & Snapchat+ promos (EXPERIMENTAL, WIP)",
+    description = "WIP: the upsell gate is not located yet, so this will currently fail to " +
+        "apply. Off by default. See Fingerprints.kt for the evidence and what's needed.",
+    default = false,
 ) {
     compatibleWith(COMPATIBILITY_SNAPCHAT)
 

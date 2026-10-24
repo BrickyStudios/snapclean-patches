@@ -11,10 +11,12 @@ import com.android.tools.smali.dexlib2.AccessFlags
  *   in classes.dex (confirmed via dexdump), alongside `SUBSCRIPTION_TIER_SNAPCHAT_PLUS_LENS`
  *   and many `*_UPSELL_*` keys.
  *
- * NOT YET METHOD-VERIFIED: confirm this string sits in a boolean gate with a bytecode pass
- *   (full jadx/REA decompile — needs a >4 GB box) before relying on this patch:
- *     "Decompile com.snapchat.android, find the method referencing
- *      PLUS_UNIFIED_PAYWALL_PROFILE_ENABLED, and show whether it gates the paywall/upsell."
+ * WILL NOT MATCH AS-IS: dexdump shows this string is defined in a `<clinit>` (a static
+ *   constant), not a boolean gate, so the filter below finds no match and the patch fails
+ *   to apply (hence EXPERIMENTAL, off by default). Locate the real upsell gate with a full
+ *   jadx/REA decompile on a >4 GB box, then rewrite this fingerprint and the patch body:
+ *     "Decompile com.snapchat.android, find the method that decides whether the Snapchat+
+ *      paywall / paid-lens upsell is shown, and show its signature."
  */
 object StorePromoGateFingerprint : Fingerprint(
     accessFlags = listOf(AccessFlags.PUBLIC),
